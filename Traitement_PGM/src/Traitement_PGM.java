@@ -8,11 +8,6 @@ import java.io.FileWriter;
 
 public class Traitement_PGM {
 
-	protected Traitement_PGM() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
 	// Création d'un histogramme à partir d'un fichier PGM
 	public HashMap<Integer, Integer> lecturePourHistogramme(String cheminFichier) {
 
@@ -59,7 +54,7 @@ public class Traitement_PGM {
 
 	// creation du fichier image PGM contenant l'histogramme
 	public void creationHistogramme(HashMap<Integer, Integer> histogramme,
-			String cheminDesire) throws IOException {
+			String cheminDesire) {
 
 		try {
 			BufferedWriter out = new BufferedWriter(
@@ -78,6 +73,8 @@ public class Traitement_PGM {
 					out.write("0");
 				}
 			}
+			
+			out.close();
 
 		}
 
