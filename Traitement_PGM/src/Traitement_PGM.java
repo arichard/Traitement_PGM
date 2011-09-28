@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 public class Traitement_PGM {
 
@@ -54,9 +57,18 @@ public class Traitement_PGM {
 
 	}
 
-	// création du fichier image PGM contenant l'histogramme
-	public void creationHistogramme(HashMap<Integer, Integer> histogramme) {
+	// creation du fichier image PGM contenant l'histogramme
+	public void creationHistogramme(HashMap<Integer, Integer> histogramme, String cheminDesire) throws IOException {
 
+		BufferedWriter out = new BufferedWriter(new FileWriter(cheminDesire));
+		
+		out.write("P2");
+		out.write("# CREATOR: Antoine");
+		out.write("256 "+histogramme.size());
+		out.write("255");
+		
+		
+		
 	}
 
 }
