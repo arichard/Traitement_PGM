@@ -14,6 +14,7 @@ public class Traitement_PGM {
 		String filePath = cheminFichier;
 
 		HashMap<Integer, Integer> histogramme = new HashMap<Integer, Integer>();
+		
 
 		try {
 			// Création du flux bufférisé sur un FileReader, immédiatement suivi
@@ -57,20 +58,34 @@ public class Traitement_PGM {
 			String cheminDesire) {
 
 		try {
-			BufferedWriter out = new BufferedWriter(
-					new FileWriter(cheminDesire));
+			BufferedWriter out = new BufferedWriter(new FileWriter(cheminDesire));
 
+			
+			int maxValue=0;
+			for (int j = 0; j<histogramme.size(); j++)
+			{
+				if(histogramme.get(j)>maxValue)
+				{
+					maxValue = histogramme.get(j);
+				}
+			}
 			out.write("P2");
+			out.newLine();
 			out.write("# CREATOR: Antoine");
-			out.write("256 " + histogramme.size());
+			out.newLine();
+			out.write(maxValue+" 256");
+			out.newLine();
 			out.write("255");
+			out.newLine();
 
-			for (int i = 1; i <= 256; i++) {
+			for (int i = 1; i <= histogramme.size(); i++) {
 				for (int j = 1; j <= histogramme.get(i); j++) {
 					out.write("255");
+					out.newLine()
 				}
-				for (int k = 1; k <= histogramme.size(); k++) {
+				for (int k = 1; k <= maxValue; k++) {
 					out.write("0");
+					out.newLine();
 				}
 			}
 			
