@@ -58,17 +58,33 @@ public class Traitement_PGM {
 	}
 
 	// creation du fichier image PGM contenant l'histogramme
-	public void creationHistogramme(HashMap<Integer, Integer> histogramme, String cheminDesire) throws IOException {
+	public void creationHistogramme(HashMap<Integer, Integer> histogramme,
+			String cheminDesire) throws IOException {
 
-		BufferedWriter out = new BufferedWriter(new FileWriter(cheminDesire));
-		
-		out.write("P2");
-		out.write("# CREATOR: Antoine");
-		out.write("256 "+histogramme.size());
-		out.write("255");
-		
-		
-		
+		try {
+			BufferedWriter out = new BufferedWriter(
+					new FileWriter(cheminDesire));
+
+			out.write("P2");
+			out.write("# CREATOR: Antoine");
+			out.write("256 " + histogramme.size());
+			out.write("255");
+
+			for (int i = 1; i <= 256; i++) {
+				for (int j = 1; j <= histogramme.get(i); j++) {
+					out.write("255");
+				}
+				for (int k = 1; k <= histogramme.size(); k++) {
+					out.write("0");
+				}
+			}
+
+		}
+
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-
 }
