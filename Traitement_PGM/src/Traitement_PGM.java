@@ -53,5 +53,10 @@ public class Traitement_PGM {
 		return histogramme;
 
 	}
-	
+
+	// création du fichier image PGM contenant l'histogramme
+	public void creationHistogramme(HashMap<Integer, Integer> histogramme) {
+
+	}
+
 }
