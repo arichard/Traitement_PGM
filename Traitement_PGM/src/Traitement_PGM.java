@@ -84,7 +84,7 @@ public class Traitement_PGM {
 					out.write("255");
 					out.newLine();
 				}
-				for (int k = 1; k <= maxValue; k++) {
+				for (int k = histogramme.get(i); k < maxValue; k++) {
 					out.write("0");
 					out.newLine();
 				}
