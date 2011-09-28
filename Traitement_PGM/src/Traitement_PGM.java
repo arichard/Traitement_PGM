@@ -3,7 +3,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 
 public class Traitement_PGM {
@@ -13,8 +12,11 @@ public class Traitement_PGM {
 
 		String filePath = cheminFichier;
 
-		HashMap<Integer, Integer> histogramme = new HashMap<Integer, Integer>();
-		
+		HashMap<Integer, Integer> histogramme = new HashMap<Integer, Integer>(
+				256);
+		for (int l = 1; l <= 256; l++) {
+			histogramme.put(l, 0);
+		}
 
 		try {
 			// CrŽation du flux buffŽrisŽ sur un FileReader, immŽdiatement suivi
@@ -35,9 +37,10 @@ public class Traitement_PGM {
 				}
 
 				// traitement des pixels
+				int temp;
 				while ((line = buff.readLine()) != null) {
-					histogramme.put(Integer.parseInt(line),
-							histogramme.get(Integer.parseInt(line) + 1));
+					temp = histogramme.get(Integer.parseInt(line)) + 1;
+					histogramme.put(Integer.parseInt(line), temp);
 				}
 
 			} finally {
@@ -57,23 +60,21 @@ public class Traitement_PGM {
 	public void creationHistogramme(HashMap<Integer, Integer> histogramme,
 			String cheminDesire) {
 
+		BufferedWriter out = null;
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(cheminDesire));
+			out = new BufferedWriter(new FileWriter(cheminDesire));
 
-			
-			int maxValue=0;
-			for (int j = 0; j<histogramme.size(); j++)
-			{
-				if(histogramme.get(j)>maxValue)
-				{
-					maxValue = histogramme.get(j);
+			int maxValue = 0;
+			for (int l = 1; l <=histogramme.size(); l++) {
+				if (histogramme.get(l) > maxValue) {
+					maxValue = histogramme.get(l);
 				}
 			}
 			out.write("P2");
 			out.newLine();
 			out.write("# CREATOR: Antoine");
 			out.newLine();
-			out.write(maxValue+" 256");
+			out.write(maxValue + " 256");
 			out.newLine();
 			out.write("255");
 			out.newLine();
@@ -88,15 +89,14 @@ public class Traitement_PGM {
 					out.newLine();
 				}
 			}
-			
+
 			out.close();
 
 		}
 
-		catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
 }
